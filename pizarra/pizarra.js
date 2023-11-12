@@ -140,7 +140,6 @@ var anim = lottie.loadAnimation({
 });
 anim.addEventListener('DOMLoaded', function (e) {
     console.log('DOMLoaded');
-    webcg.play();
     check();
   //  current_bat = "1"; //Esto sobreescribe la data inicial, no lo quiero ya!!
 });
@@ -150,10 +149,11 @@ var check = function(){
     if(condition){
         console.log("DONE waiting!! :)")
         webcg.update(saved_data);
+        webcg.play() 
     }
     else {
         console.log("waiting")
-        setTimeout(check, 500); // check again in a second
+        setTimeout(check, 100); // check again in a second
     }
 }
 
@@ -169,6 +169,7 @@ webcg.on('data', function (data) {
                 var imageElements = animContainer.getElementsByTagName("image");
                 const element = imageElements[3];
                 element.setAttribute("href", newPath);
+                update_opacidad("foto",1)
             }
             
        
@@ -236,7 +237,7 @@ webcg.on('data', function (data) {
                 } catch (err) {console.log(err)}
             }
         }    
-    }, 10); // esto es para esperar antes de hacer los cambios, por ejemplo en el momento exacto de la animacion
+    }, 500); // esto es para esperar antes de hacer los cambios, por ejemplo en el momento exacto de la animacion
 });
 
 
