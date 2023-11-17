@@ -26,7 +26,7 @@ let imagesReplace = {};
 
 
 //data de equipos
-
+let current_team
 
 
 var data_equipos = {
@@ -84,7 +84,7 @@ const loadAnimation = (data, container) => {
     });
 }
 
-let anim = loadAnimation('data.json', animContainer)
+let anim = loadAnimation('lanzador.json', animContainer)
 let externalLoop;
 
 //add font-face from data.json  
@@ -306,6 +306,13 @@ webcg.on('data', function (data) {
                                     t: data[cl] ? data[cl].text || data[cl] : ''
                                 }, 0);
 
+                                if (animElement.data.hasOwnProperty('lineup')){ // esto es solo necesario si la barra activa es diferente --> && animElement.data.lineup !== current_bat){
+                                    console.log(`Lineup Color Negro: ${animElement.data.nm} lineup:${animElement.data.lineup}`);
+                                     animElement.updateDocumentData({
+                                  t: data[cl] ? data[cl].text || data[cl] : '', fc: data_equipos[current_team].color_texto}, 0); // Update the text y coloreamos Negro
+                                     
+                                 }
+
                             } catch (err) {
                                 console.log(err)
                             }
@@ -383,11 +390,14 @@ function clear_logos(){
 }
 
 function update_equipo(nombre_equipo){
+    current_team = nombre_equipo
     clear_logos()
     update_color("c1",data_equipos[nombre_equipo].color);
-   update_color("c2",data_equipos[nombre_equipo].color);
-   update_color("c3",data_equipos[nombre_equipo].color);
-  //  update_color("c4",data_equipos[nombre_equipo].color);
+    update_color("c2",data_equipos[nombre_equipo].color);
+    update_color("c3",data_equipos[nombre_equipo].color);
+    update_color("c4",data_equipos[nombre_equipo].color);
+    update_color("c5",data_equipos[nombre_equipo].color);
+    update_color("c6",data_equipos[nombre_equipo].color);
 
     update_opacidad(data_equipos[nombre_equipo].logo, 1);
     
