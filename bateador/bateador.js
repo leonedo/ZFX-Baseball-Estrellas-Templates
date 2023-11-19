@@ -363,14 +363,26 @@ function update_opacidad(campo,value){
 }
 
 
-function checkandupdate(item){
+function checkandupdate(item, value){
     if (itemExists(item)){
         console.log(`checkandupdate: ${item} -- exist`)
-        update_opacidad(item,0)
+        update_opacidad(item,value)
     } else {
         console.log(`checkandupdate: ${item} --- waiting`)
         setTimeout(function(){
-            checkandupdate(item);
+            checkandupdate(item,value);
+        }, 100);
+    }
+}
+
+function checkandcolor(item, color){
+    if (itemExists(item)){
+        console.log(`checkandcolor: ${item} -- exist`)
+        update_color(item,color);
+    } else {
+        console.log(`checkandcolor: ${item} --- waiting`)
+        setTimeout(function(){
+            checkandcolor(item, color);
         }, 100);
     }
 }
@@ -385,19 +397,19 @@ function itemExists(item) {
 function clear_logos(){ 
     for( equipo in data_equipos) {
         logo = data_equipos[equipo].logo;
-        update_opacidad(logo,0);
+        checkandupdate(logo,0);
     }
 }
 
 function update_equipo(nombre_equipo){
     current_team = nombre_equipo
     clear_logos()
-    update_color("c1",data_equipos[nombre_equipo].color);
-   update_color("c2",data_equipos[nombre_equipo].color);
-   update_color("c3",data_equipos[nombre_equipo].color);
+    checkandcolor("c1",data_equipos[nombre_equipo].color);
+    checkandcolor("c2",data_equipos[nombre_equipo].color);
+    checkandcolor("c3",data_equipos[nombre_equipo].color);
   //  update_color("c4",data_equipos[nombre_equipo].color);
 
-    update_opacidad(data_equipos[nombre_equipo].logo, 1);
+  checkandupdate(data_equipos[nombre_equipo].logo, 1);
     
 }
 

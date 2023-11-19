@@ -2,7 +2,7 @@
 
 var animSettings = {
     "play": {
-        "in": 719,
+        "in": 722,
         "out": 734
     },
     "homerun": {
@@ -291,6 +291,13 @@ webcg.on('equipo', function(data){
     //currentTime() 
     anim.playSegments([animSettings.play.in, animSettings.play.out], true);
  });
+
+
+ webcg.on('playfull', function () {
+    //currentTime() 
+    anim.playSegments([722, 734], true);
+ });
+
 
  webcg.on('entrada', function () {
     //currentTime() 
