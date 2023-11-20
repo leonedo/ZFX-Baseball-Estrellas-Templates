@@ -223,7 +223,7 @@ webcg.on('data', function (data) {
                     }, 0); // Update the text
 
                     if (animElement.data.hasOwnProperty('lineup')){ // esto es solo necesario si la barra activa es diferente --> && animElement.data.lineup !== current_bat){
-                       console.log(`Lineup Color Negro: ${animElement.data.nm} lineup:${animElement.data.lineup}, current_bat: ${current_bat}`);
+                       console.log(`Lineup Color Negro: ${animElement.data.nm} lineup:${animElement.data.lineup}`);
                         animElement.updateDocumentData({
                      t: data[cl] ? data[cl].text || data[cl] : '', fc: data_equipos[current_team].color_texto}, 0); // Update the text y coloreamos Negro
                         
@@ -237,7 +237,7 @@ webcg.on('data', function (data) {
                 } catch (err) {console.log(err)}
             }
         }    
-    }, 500); // esto es para esperar antes de hacer los cambios, por ejemplo en el momento exacto de la animacion
+    }, 0); // esto es para esperar antes de hacer los cambios, por ejemplo en el momento exacto de la animacion
 });
 
 
