@@ -149,7 +149,7 @@ var check = function(){
     if(condition){
         console.log("DONE waiting!! :)")
         webcg.update(saved_data);
-        webcg.play() 
+        webcg.albate(current_bat)
     }
     else {
         console.log("waiting")
