@@ -356,20 +356,7 @@ function update_opacidad(campo,value){
     document.querySelector(fill).style.setProperty("opacity", value);
 }
 
-function setFillColor(campo, color) {
-    if (itemExists(campo)){
-        const elements = document.querySelectorAll(`.${campo}`);
-        elements.forEach(element => {
-            element.style.setProperty("fill", color);
-        });
-    } else { 
-        setTimeout(function(){
-            setFillColor(campo, value);
-        }, 100);
-    }
-   
-    
-}
+
 
 
 function checkandupdate(item, value){
@@ -413,11 +400,10 @@ function clear_logos(){
 function update_equipo(nombre_equipo){
     current_team = nombre_equipo
     clear_logos()
-    for (let i = 0; i <= 12; i++) {
+    for (let i = 0; i <= 30; i++) {
         checkandcolor(`c${i}`, data_equipos[nombre_equipo].color);
     }
-    setFillColor("color",data_equipos[nombre_equipo].color)
-    checkandupdate(data_equipos[nombre_equipo].logo, 1);
+        checkandupdate(data_equipos[nombre_equipo].logo, 1);
     
 }
 
