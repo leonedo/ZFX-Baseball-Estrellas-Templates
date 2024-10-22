@@ -421,7 +421,7 @@ function setFillColor(campo, color) {
 function update_equipo(nombre_equipo){
     current_team = nombre_equipo
     clear_logos()
-    setFillColor("color",data_equipos[nombre_equipo].color)
+   // setFillColor("color",data_equipos[nombre_equipo].color)
     checkandupdate(data_equipos[nombre_equipo].logo, 1);
     
 }
