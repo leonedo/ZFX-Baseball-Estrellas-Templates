@@ -109,7 +109,7 @@ const makeAnimPromise = () => {
             anim.addEventListener('DOMLoaded', function (e) {
                 animLoaded = true;
                 resolve('Animation ready to play')
-                
+                currentTime()
             });
         }
     })
@@ -313,8 +313,32 @@ anim.addEventListener('complete', () => {
     }
 })
 
-//Custom methods
 
+//Custom methods
+function currentTime() {
+   
+    var date = new Date(); /* creating object of Date class */
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds();
+    var midday = "AM";
+    midday = (hour >= 12) ? "PM" : "AM"; /* assigning AM/PM */
+    hour = (hour == 0) ? 12 : ((hour > 12) ? (hour - 12): hour); /* assigning hour in 12-hour format */
+    hour = updateTime(hour);
+    min = updateTime(min);
+    sec = updateTime(sec);
+        update({"t0": hour + ":" + min + " "  + midday})
+    var t = setTimeout(function(){ currentTime() }, 1000); /* setting timer */
+  }
+  
+  function updateTime(k) {
+    if (k < 10) {
+      return "0" + k;
+    }
+    else {
+      return k;
+    }
+  }
 //casparcg control
 webcg.on('play', function () {
     animPromise.then((resolve) => {
