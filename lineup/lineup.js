@@ -27,7 +27,7 @@ let imagesReplace = {};
 
 //data de equipos
 let current_team
-let current_bat
+let current_bat = 1
 
 var data_equipos = {
     "aguilas": {
@@ -362,11 +362,8 @@ webcg.on('data', function (data) {
 //what to do everytime main animation is done playing
 anim.addEventListener('complete', () => {
 
-    if (loopAnimation && isOn && !loopExternal) {
-        loopRepeat = setTimeout(() => {
-            anim.goToAndPlay('loop', true);
-        }, framesMilliseconds * loopDelay)
-
+    if ( isOn ) {
+       
     } else if (nextAnimation === 'stop' && isOn && !loopExternal) {
         anim.goToAndPlay(nextAnimation, true)
         isOn = false
