@@ -84,7 +84,7 @@ const loadAnimation = (data, container) => {
     });
 }
 
-let anim = loadAnimation('bateador.json', animContainer)
+let anim = loadAnimation(json_file, animContainer)
 let externalLoop;
 
 //add font-face from data.json  
@@ -375,15 +375,17 @@ function checkandupdate(item, value){
     }
 }
 
-function checkandcolor(item, color){
-    if (itemExists(item)){
-        console.log(`checkandcolor: ${item} -- exist`)
-        update_color(item,color);
-    } else {
-        console.log(`checkandcolor: ${item} --- waiting`)
-        setTimeout(function(){
-            checkandcolor(item, color);
+function checkandcolor(item, color, attempts = 0) {
+    if (itemExists(item)) {
+        console.log(`checkandcolor: ${item} -- exist`);
+        update_color(item, color);
+    } else if (attempts < 10) {
+        console.log(`checkandcolor: ${item} --- waiting (${attempts + 1}/10)`);
+        setTimeout(function() {
+            checkandcolor(item, color, attempts + 1);
         }, 100);
+    } else {
+        console.log(`checkandcolor: ${item} -- max attempts reached`);
     }
 }
 
@@ -404,11 +406,11 @@ function clear_logos(){
 function update_equipo(nombre_equipo){
     current_team = nombre_equipo
     clear_logos()
-    checkandcolor("c1",data_equipos[nombre_equipo].color);
-    checkandcolor("c2",data_equipos[nombre_equipo].color);
-    checkandcolor("c3",data_equipos[nombre_equipo].color);
-  //  update_color("c4",data_equipos[nombre_equipo].color);
-
+    const color = data_equipos[nombre_equipo].color;
+    for (let i = 0; i < 5; i++) {
+      checkandcolor(`c${i}`, color);
+    }
+    
   checkandupdate(data_equipos[nombre_equipo].logo, 1);
     
 }
@@ -427,9 +429,9 @@ webcg.on('play', function () {
     animPromise.then((resolve) => {
         console.log('play')
        // anim.playSegments([markers.start.time, markers.start.time + markers.start.duration], true);
-        anim.playSegments([0, 60], true);
+       // anim.playSegments([0, 60], true);
 
-        //anim.goToAndPlay('play', true);
+        anim.goToAndPlay('play', true);
         if (loopExits && loopExternal) {
             externalLoop.goToAndPlay('play', true);
         }
@@ -459,24 +461,11 @@ webcg.on('hide', function () {
 
 
 webcg.on('stop', function () {
-    console.log('stop')
-    clearTimeout(loopRepeat);
-    loopAnimation = false;
-    nextAnimation = 'stop'
-
-    if (anim.isPaused) {
-        if (!loopExternal) {
+    
+    
             anim.goToAndPlay('stop', true)
             isOn = false
-        }
-
-        if (loopExits && loopExternal && externalLoop.isPaused) {
-            externalLoop.goToAndPlay('stop', true);
-            anim.playSegments([markers.stop.time, markers.stop.time + markers.stop.duration], true);
-            //anim.goToAndPlay('stop', true)
-            isOn = false
-        }
-    }
+      
 
 });
 
