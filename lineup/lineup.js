@@ -27,7 +27,7 @@ let imagesReplace = {};
 
 //data de equipos
 let current_team
-let current_bat = 1
+let current_bat = 0
 
 var data_equipos = {
     "aguilas": {
@@ -436,7 +436,7 @@ function update_equipo(nombre_equipo){
     checkandcolor("c1",data_equipos[nombre_equipo].color);
     checkandcolor("c2",data_equipos[nombre_equipo].color);
     checkandcolor("c3",data_equipos[nombre_equipo].color);
-    update_color("c4",data_equipos[nombre_equipo].color);
+    checkandcolor("c4",data_equipos[nombre_equipo].color);
 
   checkandupdate(data_equipos[nombre_equipo].logo, 1);
     
