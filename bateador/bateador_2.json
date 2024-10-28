@@ -1313,6 +1313,8 @@
                     "k": [
                         {
                             "s": {
+                                "sz": [605,37],
+                                "ps": [-20,-20],
                                 "s": 37,
                                 "f": "ConduitITCStd-Medium",
                                 "t": "DE 3-3   EMPUJADA, SENCILLO, HR",
