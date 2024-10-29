@@ -21,7 +21,7 @@ let updateAnimation = false;
 let updateDelay = 0;
 let nextAnimation;
 let imagesReplace = {};
-
+let level = '0'
 
 let animContainer = document.getElementById('bm');
 let loopContainer = document.getElementById('loop');
@@ -191,6 +191,13 @@ webcg.on('data', function (data) {
     let updateTiming = 0
     console.log('data from casparcg received')
     animPromise.then(resolve => {
+        var key; 
+    for (key in data) {
+        console.log(key + " = " + data[key]); 
+        if (key.includes("level")){level = data[key]}
+        
+    } 
+
             if (anim.currentFrame !== 0 && updateAnimation) {
                 updateTiming = framesMilliseconds * (updateDelay + loopTiming)
                 if (anim.isPaused && isOn) {
@@ -267,6 +274,7 @@ webcg.on('data', function (data) {
 //what to do everytime main animation is done playing
 anim.addEventListener('complete', () => {
 
+
     if (loopAnimation && isOn && !loopExternal) {
         loopRepeat = setTimeout(() => {
             anim.goToAndPlay('loop', true);
@@ -291,8 +299,9 @@ anim.addEventListener('complete', () => {
 //casparcg control
 webcg.on('play', function () {
     animPromise.then((resolve) => {
-        console.log('play')
-        anim.goToAndPlay('play', true);
+        console.log("playing: level"+level)
+       
+        anim.goToAndPlay('level'+level, true);
         if (loopExits && loopExternal) {
             externalLoop.goToAndPlay('play', true);
         }
